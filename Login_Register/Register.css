@@ -1,0 +1,95 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic page styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(222, 231, 211);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Form container */
+form {
+    background: #baa2da;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Label styling */
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+/* Focus effect */
+input[type="text"]:focus,
+input[type="file"]:focus {
+    border-color: #4CAF50;
+}
+
+/* Submit button */
+input[type="submit"],
+button.start-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Submit hover effect */
+input[type="submit"]:hover,
+button.start-button:hover {
+    background-color: #45a049;
+}
+
+/* For Start Verification Button */
+.start-button {
+    display: block;
+    margin: 30px auto 0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    form {
+        padding: 20px;
+    }
+}

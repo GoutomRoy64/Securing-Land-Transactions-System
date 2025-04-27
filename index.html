@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangladesh LIS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(222, 231, 211);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            background-color: rgb(196, 209, 212);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 24px;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            margin: 40px 20px;
+            gap: 40px;
+        }
+        .feature {
+            text-align: center;
+            max-width: 250px;
+        }
+        .feature img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+        }
+        .start-button {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 16px;
+            background-color: #c97a11;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        footer {
+            background-color: rgb(196, 209, 212);
+            padding: 20px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        footer div {
+            max-width: 400px;
+        }
+        .quick-links a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏛️ Bangladesh LIS</h1>
+    <nav>
+       
+        <a href="Login_Register/Register.html">Registration</a>
+        <a href="Login_Register/login.html">Login</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Welcome to the Bangladesh Land Information System</h2>
+    <p>Explore the features and benefits of the Bangladesh Land Information System,<br> an innovative tool designed to streamline the management of land records through advanced technology.</p>
+    <div class="features">
+        <div class="feature">
+            <img src="Images/home_page_image.webp" alt="Land Management">
+            <h3>Feature 1</h3>
+            <p>Efficient land record management through a centralized digital platform.</p>
+        </div>
+        <div class="feature">
+            <img src="Images/home_image_f.jpg" alt="Biometric">
+            <h3>Feature 2</h3>
+            <p>Biometric verification ensuring secure and reliable identity checks.</p>
+        </div>
+        <div class="feature">
+            <img src="Images/Home_b.jpg" alt="Blockchain">
+            <h3>Feature 3</h3>
+            <p>Blockchain technology provides tamper-proof and transparent records.</p>
+        </div>
+    </div>
+    <button class="start-button" onclick="window.location.href='Login_Register/Register.html'">Start Verification</button>
+</section>
+
+<footer>
+    <div>
+        <h3>About Bangladesh LIS</h3>
+        <p>The Bangladesh LIS </p>
+    </div>
+</footer>
+
+</body>
+</html>
