@@ -58,7 +58,7 @@
         loginStatus.textContent = "✅ Login successful! Redirecting...";
         loginStatus.className = "text-green-400 text-center mt-4";
         setTimeout(() => {
-          window.location.href = "../LandOwner/dashBoard.html";
+          window.location.href = "../LandOwner/dashboard.html";
         }, 2000);
       } else {
         loginStatus.textContent = "❌ Invalid email or password.";
@@ -87,7 +87,7 @@
           loginStatus.textContent = "🔓 Biometric authentication successful! Redirecting...";
           loginStatus.className = "text-green-400 text-center mt-4";
           setTimeout(() => {
-            window.location.href = "../LandOwner/dashBoard.html";
+            window.location.href = "../LandOwner/dashboard.html";
           }, 2000);
         }
       } catch (err) {
