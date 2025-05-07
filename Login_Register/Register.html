@@ -1,39 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Register Land</title>
-    <link rel="stylesheet" href="Register.css">
-
+  <meta charset="UTF-8">
+  <title>User Registration – Land Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <h2>Land Registration Form</h2>
-    <form action="register.php" method="POST" enctype="multipart/form-data">
-        <label>Full Name:</label><br>
-        <input type="text" name="fullname" required><br><br>
+<body class="bg-gray-900 text-white font-sans min-h-screen flex items-center justify-center p-4">
 
-        <label>NID/Passport:</label><br>
-        <input type="text" name="nid_passport" required><br><br>
+  <div class="w-full max-w-4xl bg-gray-800 rounded-3xl shadow-2xl p-12 space-y-10">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold mb-3">Register New User</h1>
+      <p class="text-gray-400 text-sm">Landowners, heirs, government officials, and bank officers can register here.</p>
+    </div>
 
-        <label>Address:</label><br>
-        <input type="text" name="address" required><br><br>
+    <form id="registerForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Name -->
+      <div>
+        <label for="name" class="block mb-2 font-semibold">Full Name</label>
+        <input type="text" id="name" name="name" required placeholder="John Doe" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-indigo-500">
+      </div>
 
-        <label>Mobile/Email:</label><br>
-        <input type="text" name="contact" required><br><br>
+      <!-- NID / Passport -->
+      <div>
+        <label for="nid" class="block mb-2 font-semibold">NID / Passport Number</label>
+        <input type="text" id="nid" name="nid" required placeholder="Enter your NID or Passport Number" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-indigo-500">
+      </div>
 
-        <label>Land Location Address:</label><br>
-        <input type="text" name="land_address" required><br><br>
+      <!-- Role -->
+      <div>
+        <label for="role" class="block mb-2 font-semibold">User Role</label>
+        <select id="role" name="role" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-indigo-500">
+          <option>Landowner</option>
+          <option>Rightful Heir</option>
+          <option>Government Official</option>
+          <option>Bank Officer</option>
+        </select>
+      </div>
 
-        <label>Upload Legal Documents (Sale Deed, Land Record):</label><br>
-        <input type="file" name="legal_documents[]" multiple required><br><br>
+      <!-- Contact Number -->
+      <div>
+        <label for="contact" class="block mb-2 font-semibold">Contact Number</label>
+        <input type="tel" id="contact" name="contact" required placeholder="e.g. +8801XXXXXXXXX" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-indigo-500">
+      </div>
 
-        <label>Upload Fingerprint:</label><br>
-        <input type="file" name="fingerprint" accept="image/*" required><br><br>
+      <!-- Password -->
+      <div>
+        <label for="password" class="block mb-2 font-semibold">Password</label>
+        <input type="password" id="password" name="password" required placeholder="Create a secure password" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-indigo-500">
+      </div>
 
-        <label>Upload Face Photo:</label><br>
-        <input type="file" name="face_photo" accept="image/*" required><br><br>
+      <!-- Confirm Password -->
+      <div>
+        <label for="confirmPassword" class="block mb-2 font-semibold">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Repeat password" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-indigo-500">
+      </div>
 
-        <input type="submit" value="Submit">
+      <!-- Biometric Upload Placeholder -->
+      <div class="col-span-2">
+        <label class="block mb-2 font-semibold">Upload Biometric (Face ID / Fingerprint)</label>
+        <input type="file" id="biometric" name="biometric" accept="image/*" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 file:bg-indigo-600 file:text-white file:border-none file:rounded-lg">
+      </div>
+
+      <!-- Address -->
+      <div class="col-span-2">
+        <label for="address" class="block mb-2 font-semibold">Residential Address</label>
+        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-indigo-500"></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="col-span-2 flex justify-center">
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 px-8 py-4 rounded-xl text-xl font-bold transition-all duration-300">Register Now</button>
+      </div>
+
+      <!-- Message -->
+      <div id="formMessage" class="col-span-2 text-center mt-4 text-lg font-semibold"></div>
     </form>
+  </div>
+
+  <script>
+    const registerForm = document.getElementById('registerForm');
+    const message = document.getElementById('formMessage');
+
+    registerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const nid = document.getElementById('nid').value.trim();
+      const contact = document.getElementById('contact').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirmPassword').value;
+
+      if (name === "" || nid === "" || contact === "") {
+        message.textContent = "Please fill all required fields!";
+        message.className = "text-red-500 text-center mt-4";
+        return;
+      }
+
+      if (password !== confirm) {
+        message.textContent = "Passwords do not match!";
+        message.className = "text-red-500 text-center mt-4";
+        return;
+      }
+
+      message.textContent = "✅ Registration successful! Redirecting to login...";
+      message.className = "text-green-400 text-center mt-4";
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2000);
+    });
+  </script>
 </body>
 </html>
