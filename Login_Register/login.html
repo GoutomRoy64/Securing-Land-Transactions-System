@@ -54,11 +54,11 @@
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      if (email === "md.akram@landgov.bd" && password === "admin123") {
+      if (email === "goutom@gmail.com" && password === "ggg123") {
         loginStatus.textContent = "✅ Login successful! Redirecting...";
         loginStatus.className = "text-green-400 text-center mt-4";
         setTimeout(() => {
-          window.location.href = "dashboard.html";
+          window.location.href = "../LandOwner/dashboard.html";
         }, 2000);
       } else {
         loginStatus.textContent = "❌ Invalid email or password.";
@@ -87,7 +87,7 @@
           loginStatus.textContent = "🔓 Biometric authentication successful! Redirecting...";
           loginStatus.className = "text-green-400 text-center mt-4";
           setTimeout(() => {
-            window.location.href = "dashboard.html";
+            window.location.href = "../LandOwner/dashboard.html";
           }, 2000);
         }
       } catch (err) {
