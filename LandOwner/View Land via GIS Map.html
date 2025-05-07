@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIS Land Map View – Land Management Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .info-panel {
+      transition: all 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+  <!-- Header -->
+  <header class="bg-gray-900 py-6 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold">🗺️ GIS Land Map Viewer</h1>
+      <a href="dashboard.html" class="text-indigo-400 hover:text-indigo-300 text-sm">← Back to Dashboard</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto py-12 px-6">
+    <div class="bg-gray-900 p-10 rounded-3xl border border-gray-700 shadow-xl">
+      <h2 class="text-4xl font-bold mb-8 text-center">Explore Your Land in Real-Time Map</h2>
+
+      <!-- Input for Geo Coordinates -->
+      <form id="geoForm" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+        <div>
+          <label class="block mb-2 font-semibold">Latitude</label>
+          <input type="number" step="any" id="latitude" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 23.780636" required />
+        </div>
+        <div>
+          <label class="block mb-2 font-semibold">Longitude</label>
+          <input type="number" step="any" id="longitude" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 90.419325" required />
+        </div>
+        <div class="md:col-span-2 text-center">
+          <button type="submit" class="bg-green-600 hover:bg-green-700 px-10 py-4 rounded-xl text-xl font-bold">📍 Show on Map</button>
+        </div>
+      </form>
+
+      <!-- Map Container -->
+      <div id="map" class="mb-10"></div>
+
+      <!-- Description Panel -->
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md info-panel" id="infoPanel">
+        <h3 class="text-2xl font-semibold mb-4">Land Description</h3>
+        <p class="text-gray-400 mb-2">Live coordinates: <span id="liveLatLng" class="text-green-400 font-mono"></span></p>
+        <p class="text-gray-400 mb-2">Once geo-tagged coordinates are entered and submitted, your land boundary will appear below using satellite view. Zoom in, switch view types, and explore your registered land area easily.</p>
+        <ul class="list-disc list-inside text-sm text-gray-300">
+          <li>Supports standard GPS coordinates</li>
+          <li>Real-time marker movement updates display</li>
+          <li>Interactive map allows drag, zoom, and popup display</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-20 text-center text-gray-500 text-sm pb-10">
+    © 2025 Land Management Authority. Group 3.
+  </footer>
+
+  <!-- Leaflet Map Script -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    let map;
+    let marker;
+    const geoForm = document.getElementById("geoForm");
+    const liveLatLng = document.getElementById("liveLatLng");
+
+    function updateLiveLatLngDisplay(lat, lng) {
+      liveLatLng.textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+    }
+
+    function initializeMap(lat = 23.780636, lng = 90.419325) {
+      map = L.map("map").setView([lat, lng], 15);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(map);
+
+      marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+      marker.bindPopup("📌 Registered Land Point").openPopup();
+      updateLiveLatLngDisplay(lat, lng);
+
+      marker.on('drag', function (e) {
+        const newLatLng = marker.getLatLng();
+        updateLiveLatLngDisplay(newLatLng.lat, newLatLng.lng);
+        document.getElementById("latitude").value = newLatLng.lat.toFixed(6);
+        document.getElementById("longitude").value = newLatLng.lng.toFixed(6);
+      });
+    }
+
+    geoForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const lat = parseFloat(document.getElementById("latitude").value);
+      const lng = parseFloat(document.getElementById("longitude").value);
+
+      if (isNaN(lat) || isNaN(lng)) {
+        alert("Please enter valid coordinates.");
+        return;
+      }
+
+      if (map && marker) {
+        map.setView([lat, lng], 15);
+        marker.setLatLng([lat, lng]);
+        marker.openPopup();
+        updateLiveLatLngDisplay(lat, lng);
+      } else {
+        initializeMap(lat, lng);
+      }
+    });
+
+    window.addEventListener("load", () => {
+      initializeMap();
+    });
+  </script>
+</body>
+</html>

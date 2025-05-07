@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Profile – Land Management Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <a href="dashboard.html" class="text-indigo-400 hover:text-indigo-300 text-sm">← Back to Dashboard</a>
+</head>
+<body class="bg-gray-950 text-white min-h-screen p-6 font-sans">
+  <div class="max-w-5xl mx-auto">
+    <header class="text-center mb-12">
+      <h1 class="text-5xl font-bold mb-3">🛠️ Update Profile</h1>
+      <p class="text-gray-400 text-lg">Update your personal and land-related information securely and easily.</p>
+    </header>
+
+    <section class="bg-gray-900 p-10 rounded-3xl shadow-2xl border border-gray-700">
+      <form id="profileForm" class="space-y-10">
+        <!-- Basic Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block mb-2 font-medium">Full Name</label>
+            <input type="text" id="fullName" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. Md. Sohel Rana">
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">NID / Passport Number</label>
+            <input type="text" id="nid" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 1990876543210">
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">Contact Number</label>
+            <input type="text" id="contact" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="+8801XXXXXXXXX">
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">Email Address</label>
+            <input type="email" id="email" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="example@mail.com">
+          </div>
+        </div>
+
+        <!-- Address Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block mb-2 font-medium">Current Address</label>
+            <textarea id="currentAddress" rows="3" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="Your present address..."></textarea>
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">Permanent Address</label>
+            <textarea id="permanentAddress" rows="3" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="Your permanent address..."></textarea>
+          </div>
+        </div>
+
+        <!-- Profile Image Upload -->
+        <div>
+          <label class="block mb-2 font-medium">Profile Picture</label>
+          <input type="file" id="profileImage" accept="image/*" class="file:mr-4 file:py-3 file:px-6 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 hover:file:bg-indigo-700 text-gray-300">
+        </div>
+
+        <!-- Land Related Fields -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block mb-2 font-medium">Owned Land ID</label>
+            <input type="text" id="landId" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. LAND2023XX">
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">Land Area (acres)</label>
+            <input type="text" id="landArea" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 6.8">
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">Land District</label>
+            <input type="text" id="landDistrict" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. Rajshahi">
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">Ownership Status</label>
+            <select id="ownershipStatus" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700">
+              <option>Verified</option>
+              <option>Under Review</option>
+              <option>Disputed</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="text-center">
+          <button type="submit" class="bg-green-600 hover:bg-green-700 px-10 py-4 rounded-xl text-xl font-bold">✅ Save Profile</button>
+        </div>
+
+        <!-- Message -->
+        <div id="statusMessage" class="text-center text-lg mt-4"></div>
+      </form>
+    </section>
+
+    <!-- Preview Section -->
+    <section class="mt-14 bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-700">
+      <h2 class="text-3xl font-bold mb-6">🧾 Profile Preview</h2>
+      <div id="previewContainer" class="space-y-4 text-gray-300">
+        <!-- Dynamic preview will load here -->
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const form = document.getElementById("profileForm");
+    const statusMsg = document.getElementById("statusMessage");
+    const preview = document.getElementById("previewContainer");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById("fullName").value;
+      const nid = document.getElementById("nid").value;
+      const contact = document.getElementById("contact").value;
+      const email = document.getElementById("email").value;
+      const currentAddress = document.getElementById("currentAddress").value;
+      const permanentAddress = document.getElementById("permanentAddress").value;
+      const landId = document.getElementById("landId").value;
+      const landArea = document.getElementById("landArea").value;
+      const landDistrict = document.getElementById("landDistrict").value;
+      const status = document.getElementById("ownershipStatus").value;
+
+      if (!fullName || !nid || !contact || !email || !landId || !landArea || !landDistrict) {
+        statusMsg.textContent = "⚠️ Please fill out all required fields.";
+        statusMsg.className = "text-red-500 text-center mt-4";
+        return;
+      }
+
+      statusMsg.textContent = "✅ Profile updated successfully!";
+      statusMsg.className = "text-green-500 text-center mt-4";
+
+      const html = `
+        <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
+          <div><strong>Name:</strong> ${fullName}</div>
+          <div><strong>NID:</strong> ${nid}</div>
+          <div><strong>Contact:</strong> ${contact}</div>
+          <div><strong>Email:</strong> ${email}</div>
+          <div><strong>Current Address:</strong> ${currentAddress}</div>
+          <div><strong>Permanent Address:</strong> ${permanentAddress}</div>
+          <div><strong>Land ID:</strong> ${landId}</div>
+          <div><strong>Land Area:</strong> ${landArea} acres</div>
+          <div><strong>District:</strong> ${landDistrict}</div>
+          <div><strong>Ownership Status:</strong> ${status}</div>
+        </div>
+      `;
+
+      preview.innerHTML = html;
+    });
+  </script>
+</body>
+</html>

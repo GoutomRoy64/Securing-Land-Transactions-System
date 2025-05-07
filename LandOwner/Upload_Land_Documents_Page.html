@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Land Documents – Land Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <a href="dashboard.html" class="text-indigo-400 hover:text-indigo-300 text-sm">← Back to Dashboard</a>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white min-h-screen p-6">
+  <div class="max-w-6xl mx-auto">
+    <header class="text-center mb-10">
+      <h1 class="text-5xl font-extrabold mb-4">📄 Upload Legal Land Documents</h1>
+      <p class="text-lg text-gray-400">Securely upload scanned copies of verified documents. Formats supported: PDF, JPG, PNG.</p>
+    </header>
+
+    <section class="bg-gray-900 p-10 rounded-3xl border border-gray-700 shadow-xl">
+      <form id="uploadForm" class="space-y-8">
+        <!-- Owner Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm mb-2 font-semibold">Owner Name</label>
+            <input type="text" id="ownerName" class="w-full bg-gray-800 p-4 rounded-lg border border-gray-700" placeholder="e.g. Mr. Karim Uddin">
+          </div>
+          <div>
+            <label class="block text-sm mb-2 font-semibold">NID / Passport Number</label>
+            <input type="text" id="ownerNID" class="w-full bg-gray-800 p-4 rounded-lg border border-gray-700" placeholder="e.g. 1990123456789">
+          </div>
+        </div>
+
+        <!-- Land Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm mb-2 font-semibold">Land Area</label>
+            <input type="text" id="landArea" class="w-full bg-gray-800 p-4 rounded-lg border border-gray-700" placeholder="e.g. 5.5 Acres">
+          </div>
+          <div>
+            <label class="block text-sm mb-2 font-semibold">District</label>
+            <input type="text" id="district" class="w-full bg-gray-800 p-4 rounded-lg border border-gray-700" placeholder="e.g. Sylhet">
+          </div>
+        </div>
+
+        <!-- File Upload -->
+        <div>
+          <label class="block text-sm mb-2 font-semibold">Upload Document File (PDF / JPG / PNG)</label>
+          <input type="file" id="documentFile" accept=".pdf, .jpg, .jpeg, .png" class="block w-full text-sm text-gray-300 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 hover:file:bg-indigo-700" multiple>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-sm mb-2 font-semibold">Additional Notes / Document Description</label>
+          <textarea id="notes" rows="4" class="w-full bg-gray-800 p-4 rounded-lg border border-gray-700" placeholder="Mention land deed number, registration details, etc."></textarea>
+        </div>
+
+        <!-- Terms -->
+        <div class="flex items-start">
+          <input type="checkbox" id="agree" class="mr-2">
+          <label for="agree" class="text-sm">I confirm that the above data is true and legal. I authorize the system to verify this via blockchain.</label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="bg-green-600 hover:bg-green-700 px-10 py-4 rounded-xl text-xl font-bold">📤 Upload Documents</button>
+        </div>
+
+        <!-- Upload Status -->
+        <div id="uploadStatus" class="text-center mt-6 text-lg"></div>
+      </form>
+    </section>
+
+    <!-- Uploaded Files Display Section -->
+    <section class="mt-16 bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-lg">
+      <h2 class="text-3xl font-bold mb-6">📁 Recently Uploaded Documents</h2>
+      <div id="uploadedFiles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- JS will insert uploaded previews here -->
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const uploadedFiles = document.getElementById('uploadedFiles');
+
+    uploadForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      uploadStatus.innerHTML = "";
+
+      const name = document.getElementById('ownerName').value.trim();
+      const nid = document.getElementById('ownerNID').value.trim();
+      const fileInput = document.getElementById('documentFile');
+      const agree = document.getElementById('agree').checked;
+
+      if (!name || !nid || fileInput.files.length === 0 || !agree) {
+        uploadStatus.innerHTML = '<p class="text-red-500">Please fill in all fields and agree to the terms.</p>';
+        return;
+      }
+
+      uploadStatus.innerHTML = '<p class="text-blue-400">Uploading...</p>';
+
+      setTimeout(() => {
+        for (let i = 0; i < fileInput.files.length; i++) {
+          const file = fileInput.files[i];
+          const fileBox = document.createElement('div');
+          fileBox.className = "p-4 rounded-xl bg-gray-800 border border-gray-700 text-sm flex flex-col";
+
+          fileBox.innerHTML = `
+            <p class="mb-2 font-semibold">📎 ${file.name}</p>
+            <p class="text-gray-400">Size: ${(file.size / 1024).toFixed(2)} KB</p>
+            <p class="text-green-400 mt-2">✅ Upload Successful</p>
+          `;
+
+          uploadedFiles.appendChild(fileBox);
+        }
+        uploadStatus.innerHTML = '<p class="text-green-500">All documents uploaded successfully!</p>';
+        uploadForm.reset();
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

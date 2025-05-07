@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Land Loan – Land Management Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+  <header class="bg-gray-900 py-6 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold">💰 Apply for Land Loan</h1>
+      <a href="dashboard.html" class="text-indigo-400 hover:text-indigo-300 text-sm">← Back to Dashboard</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto py-12 px-6">
+    <div class="bg-gray-900 p-10 rounded-3xl border border-gray-700 shadow-xl fade-in">
+      <h2 class="text-4xl font-bold mb-10 text-center">Submit Loan Application</h2>
+
+      <form id="loanForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <label class="block mb-2 font-semibold">Full Name</label>
+          <input type="text" id="fullName" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. Md. Akash Hossain">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">NID / Passport No.</label>
+          <input type="text" id="nidPassport" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 9876543210000">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Phone Number</label>
+          <input type="tel" id="phone" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. +88017XXXXXXX">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Email Address</label>
+          <input type="email" id="email" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. applicant@example.com">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Loan Amount Requested (৳)</label>
+          <input type="number" id="loanAmount" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 500000">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Loan Purpose</label>
+          <select id="loanPurpose" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700">
+            <option>Land Purchase</option>
+            <option>Land Development</option>
+            <option>Legal Fees</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block mb-2 font-semibold">Supporting Documents</label>
+          <input type="file" id="documents" accept=".pdf,.jpg,.png" multiple class="block w-full text-sm text-gray-300 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 hover:file:bg-indigo-700">
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block mb-2 font-semibold">Describe Why You Need the Loan</label>
+          <textarea id="loanReason" rows="5" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="Explain how this loan will help you and your land objectives."></textarea>
+        </div>
+
+        <div class="md:col-span-2 flex items-start">
+          <input type="checkbox" id="consent" class="mr-2 mt-1">
+          <label for="consent" class="text-sm">I confirm all provided data is accurate and can be verified by loan officers.</label>
+        </div>
+
+        <div class="md:col-span-2 text-center mt-6">
+          <button type="submit" class="bg-green-600 hover:bg-green-700 px-12 py-4 rounded-xl text-xl font-bold">📨 Submit Loan Request</button>
+        </div>
+
+        <div id="loanStatus" class="md:col-span-2 text-center mt-6 text-lg"></div>
+      </form>
+
+      <!-- Loan Application Steps -->
+      <div class="mt-20 bg-gray-800 p-8 rounded-xl">
+        <h3 class="text-2xl font-bold mb-4">🧾 Loan Processing Steps</h3>
+        <ol class="list-decimal list-inside space-y-2 text-gray-300 text-sm">
+          <li>Submit your filled application form along with all supporting documents.</li>
+          <li>Verification team will validate your land ownership and loan intent.</li>
+          <li>Bank officials will evaluate your financial and credit record.</li>
+          <li>Loan decision will be communicated within 7 working days.</li>
+          <li>If approved, funds will be disbursed directly to your account.</li>
+        </ol>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-20 text-center text-gray-500 text-sm pb-10">
+    © 2025 Land Management Authority. Group 3.
+  </footer>
+
+  <script>
+    const loanForm = document.getElementById("loanForm");
+    const loanStatus = document.getElementById("loanStatus");
+
+    loanForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const nidPassport = document.getElementById("nidPassport").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const loanAmount = document.getElementById("loanAmount").value.trim();
+      const loanReason = document.getElementById("loanReason").value.trim();
+      const consent = document.getElementById("consent").checked;
+
+      if (!fullName || !nidPassport || !phone || !email || !loanAmount || !loanReason || !consent) {
+        loanStatus.textContent = "⚠️ Please complete all fields and confirm accuracy.";
+        loanStatus.className = "text-red-500 text-center mt-4";
+        return;
+      }
+
+      loanStatus.textContent = "✅ Loan application submitted successfully. You will be notified soon.";
+      loanStatus.className = "text-green-500 text-center mt-4";
+
+      setTimeout(() => {
+        loanForm.reset();
+        loanStatus.textContent = "";
+      }, 4000);
+    });
+  </script>
+</body>
+</html>

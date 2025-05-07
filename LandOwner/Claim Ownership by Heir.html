@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Claim Ownership – Land Management Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .fade {
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .timeline {
+      border-left: 3px solid #4f46e5;
+      padding-left: 20px;
+      margin-top: 2rem;
+    }
+    .timeline-step {
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+  <header class="bg-gray-900 py-6 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold">📜 Claim Land Ownership</h1>
+      <a href="dashboard.html" class="text-indigo-400 hover:text-indigo-300 text-sm">← Back to Dashboard</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto py-12 px-6">
+    <div class="bg-gray-900 p-10 rounded-3xl border border-gray-700 shadow-xl fade">
+      <h2 class="text-4xl font-bold mb-6 text-center">Submit Claim for Land Ownership</h2>
+
+      <form id="claimForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <label class="block mb-2 font-semibold">Applicant Name</label>
+          <input type="text" id="applicantName" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. Rezaul Karim">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Applicant NID</label>
+          <input type="text" id="applicantNID" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 1988001234567">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Land Deed Number</label>
+          <input type="text" id="deedNumber" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. D123456789">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Previous Owner's Name</label>
+          <input type="text" id="prevOwner" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. Abdul Hamid">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Upload Proof Document</label>
+          <input type="file" id="ownershipDoc" accept=".pdf, .jpg, .jpeg, .png" class="block w-full text-sm text-gray-300 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 hover:file:bg-indigo-700">
+        </div>
+
+        <div>
+          <label class="block mb-2 font-semibold">Claim Justification</label>
+          <textarea id="justification" rows="4" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="Explain reason and legal basis for ownership claim."></textarea>
+        </div>
+
+        <div class="md:col-span-2 flex items-start">
+          <input type="checkbox" id="confirmation" class="mr-2 mt-1">
+          <label for="confirmation" class="text-sm">I confirm that this information is accurate and legally verifiable.</label>
+        </div>
+
+        <div class="md:col-span-2 text-center mt-6">
+          <button type="submit" class="bg-green-600 hover:bg-green-700 px-12 py-4 rounded-xl text-xl font-bold">📤 Submit Ownership Claim</button>
+        </div>
+
+        <div id="claimStatus" class="md:col-span-2 text-center mt-6 text-lg"></div>
+      </form>
+
+      <!-- New Section: Claim Verification Timeline -->
+      <div class="mt-16 bg-gray-800 p-8 rounded-2xl shadow-md">
+        <h3 class="text-2xl font-bold mb-4">🧾 Claim Process Timeline</h3>
+        <div class="timeline">
+          <div class="timeline-step">
+            <p class="text-indigo-400 font-semibold">📩 Step 1: Submission</p>
+            <p class="text-sm text-gray-400">Your application is received and queued for processing.</p>
+          </div>
+          <div class="timeline-step">
+            <p class="text-indigo-400 font-semibold">🔍 Step 2: Document Verification</p>
+            <p class="text-sm text-gray-400">Your ownership documents are checked by officials.</p>
+          </div>
+          <div class="timeline-step">
+            <p class="text-indigo-400 font-semibold">🏛️ Step 3: Legal Clearance</p>
+            <p class="text-sm text-gray-400">The legal team verifies all claims against national land records.</p>
+          </div>
+          <div class="timeline-step">
+            <p class="text-indigo-400 font-semibold">✅ Step 4: Approval</p>
+            <p class="text-sm text-gray-400">Once verified, ownership is granted and updated in the system.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-20 text-center text-gray-500 text-sm pb-10">
+    © 2025 Land Management Authority. Group 3.
+  </footer>
+
+  <script>
+    const claimForm = document.getElementById("claimForm");
+    const claimStatus = document.getElementById("claimStatus");
+
+    claimForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("applicantName").value.trim();
+      const nid = document.getElementById("applicantNID").value.trim();
+      const deed = document.getElementById("deedNumber").value.trim();
+      const prevOwner = document.getElementById("prevOwner").value.trim();
+      const justification = document.getElementById("justification").value.trim();
+      const confirm = document.getElementById("confirmation").checked;
+
+      if (!name || !nid || !deed || !prevOwner || !justification || !confirm) {
+        claimStatus.textContent = "⚠️ Please fill in all fields and confirm accuracy.";
+        claimStatus.className = "text-red-500 text-center mt-4";
+        return;
+      }
+
+      claimStatus.textContent = "✅ Your claim has been submitted and is pending verification.";
+      claimStatus.className = "text-green-500 text-center mt-4";
+
+      setTimeout(() => {
+        claimForm.reset();
+        claimStatus.textContent = "";
+      }, 4000);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Rightful Heir – Land Management Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-black via-gray-900 to-black text-white min-h-screen">
+  <!-- Header -->
+  <header class="bg-gray-900 py-6 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold">🏛️ Add Rightful Heir</h1>
+      <a href="dashboard.html" class="text-indigo-400 hover:text-indigo-300 text-sm">← Back to Dashboard</a>
+    </div>
+  </header>
+
+  <!-- Main Form Section -->
+  <main class="max-w-5xl mx-auto py-12 px-6">
+    <div class="bg-gray-900 p-10 rounded-3xl border border-gray-700 shadow-lg">
+      <h2 class="text-4xl font-bold mb-10 text-center">Declare a Rightful Heir for Your Land</h2>
+
+      <form id="heirForm" class="space-y-12">
+        <!-- Owner Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block mb-2 font-semibold">Landowner Name</label>
+            <input type="text" id="ownerName" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. Abdul Karim" />
+          </div>
+          <div>
+            <label class="block mb-2 font-semibold">NID / Passport Number</label>
+            <input type="text" id="ownerNID" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 1990456743211" />
+          </div>
+        </div>
+
+        <!-- Heir Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block mb-2 font-semibold">Heir Full Name</label>
+            <input type="text" id="heirName" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. Farzana Karim" />
+          </div>
+          <div>
+            <label class="block mb-2 font-semibold">Heir NID / Passport</label>
+            <input type="text" id="heirNID" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. 200011234567" />
+          </div>
+        </div>
+
+        <!-- Relationship -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block mb-2 font-semibold">Relationship to Owner</label>
+            <select id="relationship" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700">
+              <option>Son</option>
+              <option>Daughter</option>
+              <option>Spouse</option>
+              <option>Sibling</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block mb-2 font-semibold">Date of Birth of Heir</label>
+            <input type="date" id="heirDOB" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" />
+          </div>
+        </div>
+
+        <!-- Heir Contact & Address -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block mb-2 font-semibold">Heir Phone Number</label>
+            <input type="tel" id="heirPhone" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. +88017XXXXXXX" />
+          </div>
+          <div>
+            <label class="block mb-2 font-semibold">Heir Email</label>
+            <input type="email" id="heirEmail" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="e.g. heir@example.com" />
+          </div>
+        </div>
+
+        <!-- Address Textarea -->
+        <div>
+          <label class="block mb-2 font-semibold">Heir Residential Address</label>
+          <textarea id="heirAddress" rows="4" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700" placeholder="Full address including district, village, zip code"></textarea>
+        </div>
+
+        <!-- File Upload Proof -->
+        <div>
+          <label class="block mb-2 font-semibold">Upload Supporting Document (Birth Certificate / Relationship Proof)</label>
+          <input type="file" id="proofFile" accept="image/*, .pdf" class="block w-full text-sm text-gray-300 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 hover:file:bg-indigo-700" />
+        </div>
+
+        <!-- Terms -->
+        <div class="flex items-start">
+          <input type="checkbox" id="terms" class="mr-2" />
+          <label for="terms" class="text-sm">I confirm that this heir is legal and I authorize system verification.</label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="bg-green-600 hover:bg-green-700 px-10 py-4 rounded-xl text-xl font-bold">➕ Add Heir</button>
+        </div>
+
+        <!-- Response Message -->
+        <div id="heirStatus" class="text-center mt-6 text-lg"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="mt-20 text-center text-gray-500 text-sm pb-10">
+    © 2025 Land Management Authority. Group 3.
+  </footer>
+
+  <!-- JavaScript Section -->
+  <script>
+    const heirForm = document.getElementById("heirForm");
+    const heirStatus = document.getElementById("heirStatus");
+
+    heirForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("ownerName").value.trim();
+      const nid = document.getElementById("ownerNID").value.trim();
+      const heirName = document.getElementById("heirName").value.trim();
+      const heirNID = document.getElementById("heirNID").value.trim();
+      const heirPhone = document.getElementById("heirPhone").value.trim();
+      const heirEmail = document.getElementById("heirEmail").value.trim();
+      const heirAddress = document.getElementById("heirAddress").value.trim();
+      const terms = document.getElementById("terms").checked;
+
+      if (!name || !nid || !heirName || !heirNID || !heirPhone || !heirEmail || !heirAddress || !terms) {
+        heirStatus.textContent = "⚠️ Please complete all required fields and accept terms.";
+        heirStatus.className = "text-red-500 text-center mt-4";
+        return;
+      }
+
+      heirStatus.textContent = "✅ Heir added successfully and sent for verification.";
+      heirStatus.className = "text-green-500 text-center mt-4";
+
+      setTimeout(() => {
+        heirStatus.textContent = "";
+        heirForm.reset();
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

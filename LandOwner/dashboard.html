@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard – Land Management Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+  <!-- Navigation -->
+  <header class="bg-gray-900 py-5 shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <h1 class="text-2xl font-bold">🏡 Land Management Dashboard</h1>
+      <nav class="space-x-6 text-sm">
+        <a href="#" class="hover:text-indigo-400">Home</a>
+        <a href="#" class="hover:text-indigo-400">My Documents</a>
+        <a href="#" class="hover:text-indigo-400">Claim Status</a>
+        <a href="#" class="hover:text-indigo-400">Apply Loan</a>
+        <a href="Notifications.html" class="hover:text-indigo-400">Notifications</a>
+        <a href="../index.html" class="hover:text-indigo-400">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Content -->
+  <main class="max-w-7xl mx-auto px-4 py-10 fade-in">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Dashboard Cards -->
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+        <h3 class="text-xl font-semibold mb-2">📑 Upload Documents</h3>
+        <p class="text-gray-400 text-sm mb-4">View and upload your land-related documents.</p>
+        <a href="Upload_Land_Documents_Page.html" class="inline-block text-indigo-400 hover:underline">Go to Upload →</a>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+        <h3 class="text-xl font-semibold mb-2">🏛️ Claim Ownership</h3>
+        <p class="text-gray-400 text-sm mb-4">Submit ownership claims on registered land assets.</p>
+        <a href="Claim Ownership by Heir.html" class="inline-block text-indigo-400 hover:underline">Go to Claim →</a>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+        <h3 class="text-xl font-semibold mb-2">📍 GIS Land Map</h3>
+        <p class="text-gray-400 text-sm mb-4">Visualize your property using GPS-enabled maps.</p>
+        <a href="View Land via GIS Map.html" class="inline-block text-indigo-400 hover:underline">Open Map →</a>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+        <h3 class="text-xl font-semibold mb-2">💸 Apply for Loan</h3>
+        <p class="text-gray-400 text-sm mb-4">Apply for government-backed loans on land ownership.</p>
+        <a href="Apply for Loan .html" class="inline-block text-indigo-400 hover:underline">Apply Now →</a>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+        <h3 class="text-xl font-semibold mb-2">👥 Add Heir</h3>
+        <p class="text-gray-400 text-sm mb-4">Add family members as legal heirs to your property.</p>
+        <a href="Add Rightful Heir Page.html" class="inline-block text-indigo-400 hover:underline">Manage Heirs →</a>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+        <h3 class="text-xl font-semibold mb-2">⚙️ Update Profile</h3>
+        <p class="text-gray-400 text-sm mb-4">Edit and manage your account information securely.</p>
+        <a href="Profile Update Page.html" class="inline-block text-indigo-400 hover:underline">Edit Profile →</a>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+        <h3 class="text-xl font-semibold mb-2">🔔 Notifications</h3>
+        <p class="text-gray-400 text-sm mb-4">View real-time updates and alerts related to your land and claims.</p>
+        <a href="Notifications.html" class="inline-block text-indigo-400 hover:underline">Check Alerts →</a>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+        <h3 class="text-xl font-semibold mb-2">📊 Analytics</h3>
+        <p class="text-gray-400 text-sm mb-4">View ownership stats, claim progress, and land distribution graphs.</p>
+        <a href="Analytics.html" class="inline-block text-indigo-400 hover:underline">View Insights →</a>
+      </div>
+    </div>
+
+    <!-- Welcome Panel -->
+    <div class="mt-16 text-center text-gray-400">
+      <p class="text-sm">Logged in as: <span class="font-semibold text-white">goutom@example.com</span></p>
+      <p class="text-xs mt-2">Last login: <span id="lastLogin" class="font-mono"></span></p>
+    </div>
+  </main>
+
+  <footer class="mt-20 text-center text-gray-600 text-xs pb-10">
+    © 2025 Land Management Authority. Group 3.
+  </footer>
+
+  <script>
+    // Display simulated login time
+    const loginDisplay = document.getElementById("lastLogin");
+    const now = new Date();
+    loginDisplay.textContent = now.toLocaleString();
+  </script>
+</body>
+</html>
