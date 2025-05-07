@@ -1,73 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecureLI - Login</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(to right, #d3d8c9 50%, white 50%);
-        }
-        .login-box {
-            background: white;
-            padding: 50px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 100%;
-        }
-        .login-box h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .login-box input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-        }
-        .login-box button {
-            width: 100%;
-            padding: 15px;
-            background-color: #c97a11;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            margin: 10px 0;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .fingerprint {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .fingerprint img {
-            width: 80px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – Land Management Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #111827, #1f2937);
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
-<body>
-
-<div class="login-box">
-    <h1>SecureLI</h1>
-    <form>
-        <input type="email" placeholder="Username (Email)" required>
-        <input type="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-        <div style="text-align: center; margin: 15px 0;">or</div>
-        <button type="button">Register</button>
+<body class="min-h-screen flex items-center justify-center text-white fade-in">
+  <div class="w-full max-w-md p-8 bg-gray-800 rounded-2xl shadow-2xl">
+    <h2 class="text-3xl font-bold text-center mb-6">🔐 Login to Land Portal</h2>
+    <form id="loginForm" class="space-y-6">
+      <div>
+        <label for="email" class="block text-sm font-medium mb-1">Email</label>
+        <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none" placeholder="you@example.com">
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium mb-1">Password</label>
+        <input type="password" id="password" required class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none" placeholder="••••••••">
+      </div>
+      <div class="flex items-center justify-between">
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600">
+          <span class="ml-2 text-sm">Remember me</span>
+        </label>
+        <a href="#" class="text-sm text-indigo-400 hover:underline">Forgot password?</a>
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 py-3 rounded-lg font-bold text-lg">Login</button>
+      <button type="button" onclick="authenticateWithBiometrics()" class="w-full mt-3 bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-bold text-lg flex items-center justify-center">
+        <i class="fas fa-fingerprint mr-2"></i> Login with Fingerprint
+      </button>
+      <p id="loginStatus" class="text-center mt-4 text-sm"></p>
     </form>
-    <div class="fingerprint">
-        <img src="Images/home_image_f.jpg" alt="Fingerprint">
-    </div>
-</div>
+  </div>
 
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const loginStatus = document.getElementById("loginStatus");
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (email === "md.akram@landgov.bd" && password === "admin123") {
+        loginStatus.textContent = "✅ Login successful! Redirecting...";
+        loginStatus.className = "text-green-400 text-center mt-4";
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 2000);
+      } else {
+        loginStatus.textContent = "❌ Invalid email or password.";
+        loginStatus.className = "text-red-500 text-center mt-4";
+      }
+    });
+
+    async function authenticateWithBiometrics() {
+      if (!window.PublicKeyCredential) {
+        loginStatus.textContent = "❌ Biometrics not supported on this device.";
+        loginStatus.className = "text-red-500 text-center mt-4";
+        return;
+      }
+
+      try {
+        const credential = await navigator.credentials.get({
+          publicKey: {
+            challenge: new Uint8Array([0x8C, 0x7B, 0x6A, 0x9D]),
+            timeout: 60000,
+            userVerification: "preferred",
+            allowCredentials: []
+          }
+        });
+
+        if (credential) {
+          loginStatus.textContent = "🔓 Biometric authentication successful! Redirecting...";
+          loginStatus.className = "text-green-400 text-center mt-4";
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 2000);
+        }
+      } catch (err) {
+        loginStatus.textContent = `❌ Biometric login failed: ${err.message}`;
+        loginStatus.className = "text-red-500 text-center mt-4";
+      }
+    }
+  </script>
 </body>
 </html>
