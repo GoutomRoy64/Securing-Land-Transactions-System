@@ -28,6 +28,10 @@
             text-decoration: none;
             color: rgb(255, 255, 255);
             font-weight: bold;
+            
+        }
+        nav a:hover{
+            border-bottom: 1px solid white;3
         }
         .hero {
             text-align: center;
@@ -45,13 +49,13 @@
             gap: 40px;
         }
         .feature {
-            border:2px solid rgb(51, 48, 48);
+            border:3px solid rgb(51, 48, 48);
             border-radius: 10px;
             text-align: center;
             max-width: 250px;
         }
         .feature:hover{
-            border: 2px solid orange;
+            border: 3px solid orange;
             max-width: 280px;
         }
         .feature img {
@@ -63,22 +67,35 @@
             margin-top: 30px;
             padding: 15px 30px;
             font-size: 16px;
-            background-color: #c97a11;
+            font-weight: 600;
+            background-color: #000000;
             color: white;
             border: none;
             border-radius: 25px;
             cursor: pointer;
         }
-        
+        .start-button:hover{
+            background-color: #c97a11;
+            font-weight: 900;
+        }
         footer {
-            background-color: rgb(196, 209, 212);
+            background-color: rgb(5, 30, 35);
             padding: 20px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content:center ;
         }
         footer div {
             max-width: 400px;
+            color: white;   
         }
+       
+        /* .foot{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        } */
         .quick-links a {
             display: block;
             margin-bottom: 10px;
@@ -92,7 +109,6 @@
 <header>
     <h1>🏛️ Bangladesh LIS</h1>
     <nav>
-       
         <a href="Login_Register/Register.html">Registration</a>
         <a href="Login_Register/login.html">Login</a>
     </nav>
@@ -122,9 +138,11 @@
 </section>
 
 <footer>
-    <div>
-        <h3>About Bangladesh LIS</h3>
+    <div class="foot">
+        <h3 >About Bangladesh LIS</h3>
         <p>The Bangladesh LIS </p>
+        <a style="color: white;" href="Login_Register/Register.html">Registration</a>
+        <a style="color: white;" href="Login_Register/login.html">Login</a>
     </div>
 </footer>
 
